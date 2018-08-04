@@ -10,11 +10,18 @@ Types::QueryType = GraphQL::ObjectType.define do
       "Hello World!"
     }
   end
-
-  field :users, Types::UserType do
+  # types[Types::ObjectType] == Array / Multiple value
+  # types.ObjectType == Single value
+  field :users, types[Types::UserType] do
     description "Get All User ID and Email"
     resolve -> (obj, args, ctx) {
       User.all
+    }
+  end
+
+  field :phonebooks, types[Types::PhonebookType] do
+    resolve -> (obj, args, ctx) {
+      Phonebook.all
     }
   end
 end
